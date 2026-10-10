@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: app
-          image: goodboynhatrang/jenkins-ci-demo:899144b0413d65edd302fc193bc978163f063616
+          image: goodboynhatrang/jenkins-ci-demo:71e5d2c325aac72fb924095b0f88e5d55772f210
           ports:
             - name: http
               containerPort: 5000
