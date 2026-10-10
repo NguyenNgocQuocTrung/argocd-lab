@@ -1,0 +1,14 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-ci-demo
+  namespace: jenkins-demo
+spec:
+  type: ClusterIP
+  selector:
+    app: jenkins-ci-demo
+  ports:
+    - name: http
+      port: 80
+      targetPort: 5000

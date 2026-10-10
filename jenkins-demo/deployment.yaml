@@ -1,0 +1,34 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins-ci-demo
+  namespace: jenkins-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jenkins-ci-demo
+  template:
+    metadata:
+      labels:
+        app: jenkins-ci-demo
+    spec:
+      containers:
+        - name: app
+          image: goodboynhatrang/jenkins-ci-demo:28b95396de6786777ac5cb45ec3a8fa7e290c64f
+          ports:
+            - name: http
+              containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 3
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
