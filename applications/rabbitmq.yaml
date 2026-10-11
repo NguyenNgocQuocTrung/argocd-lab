@@ -1,0 +1,31 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq
+  namespace: argocd
+spec:
+  project: default
+
+  sources:
+    # Source 1: RabbitMQ Helm chart
+    - repoURL: https://github.com/NguyenNgocQuocTrung/rabbitmq.git
+      targetRevision: main
+      path: rabbitmq
+      helm:
+        releaseName: rabbitmq
+        valueFiles:
+          - $values/environments/dev/rabbitmq-values.yaml
+
+    # Source 2: GitOps configuration
+    - repoURL: https://github.com/NguyenNgocQuocTrung/argocd-lab.git
+      targetRevision: main
+      ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: messaging
+
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true

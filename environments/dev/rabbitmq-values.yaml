@@ -1,0 +1,15 @@
+
+replicaCount: 1
+
+auth:
+  username: appuser
+  existingPasswordSecret: rabbitmq-auth
+  existingErlangSecret: rabbitmq-erlang
+
+service:
+  type: ClusterIP
+
+persistence:
+  enabled: true
+  storageClass: local-path
+  size: 2Gi
