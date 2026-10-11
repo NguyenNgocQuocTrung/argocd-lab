@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: rabbitmq
+  namespace: argocd
+spec:
+  project: default
+  source:
+    # URL tới repo Helm Chart RabbitMQ bạn đã vendor
+    repoURL: 'git@github.com:NguyenNgocQuocTrung/rabbitmq.git'
+    targetRevision: HEAD
+    path: '.' # Chart.yaml nằm ở thư mục gốc của repo rabbitmq
+    helm:
+      parameters:
+        - name: auth.username
+          value: guest
+        - name: auth.password
+          value: guest
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: infrastructure
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
