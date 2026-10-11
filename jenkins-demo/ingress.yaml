@@ -1,0 +1,19 @@
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-demo
+  namespace: jenkins-demo
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: jenkins-demo.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jenkins-ci-demo
+                port:
+                  number: 80
