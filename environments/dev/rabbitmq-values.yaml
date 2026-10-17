@@ -7,7 +7,9 @@ auth:
   existingErlangSecret: rabbitmq-erlang
 
 service:
-  type: ClusterIP
+  type: NodePort
+  nodePorts:
+    manager: "31672"
 
 persistence:
   enabled: true
